@@ -1,4 +1,5 @@
 import { downArrow, expenses, upArrow } from "../constants";
+import Menu from "./Menu";
 import { useState } from "react";
 
 const HomePage = () => {
@@ -74,6 +75,7 @@ const HomePage = () => {
                     ))}
                 </div>
             </div>
+            <Menu/>
         </section>
     )
 }
