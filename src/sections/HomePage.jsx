@@ -2,7 +2,9 @@ import { downArrow, expenses, upArrow } from "../constants";
 import { useState } from "react";
 
 const HomePage = () => {
-    const [filteractive,setFilteractive]=useState(false)
+    const buttons = ['Today', 'Weekly', 'Monthly'];
+    const [activeButton,setActiveButton]=useState(null)
+
     return (
        
         <section id="HomePage" className="bg-[#C6C6C6]">
@@ -39,17 +41,26 @@ const HomePage = () => {
                 </div>
             </div>
             <div className="">
-                <div className="text-white w-[80%] m-auto flex justify-between gap-2 mt-6 border-2 border-white  rounded-full">
-                 <button className={`${filteractive}bg-black text-white px-4 py-2 rounded-full font-bold`} onClick={(()=>{setFilteractive(true)})}>Today</button>
-                 <button className="py-2">Weekly</button>
-                 <button className="py-2">Monthly</button>
-                 <button className="py-2">Yearly</button>
+                <div className="text-white w-[95%] m-auto flex justify-between gap-2 mt-6 border-2 border-white  rounded-full">
+                {buttons.map((button, index) => (
+        <button
+          key={index}
+          onClick={() => setActiveButton(index)}
+          className={`px-4 py-2 rounded-full text-white font-bold transition-colors
+            ${activeButton === index 
+              ? 'bg-black' 
+              : 'bg-transparent'
+            }`}
+        >
+          {button}
+        </button>
+      ))}
                 </div>
-                <div className="flex justify-between items-center w-[80%] m-auto mt-4">
+                <div className="flex justify-between items-center w-[95%] m-auto mt-4">
                     <button>Recent Transactions</button>
                     <button>View All</button> 
                 </div>
-                <div className="w-[80%] m-auto gap-4 flex flex-col mt-4 ">
+                <div className="w-[95%] m-auto gap-4 flex flex-col mt-4 ">
                     {expenses.map((expense)=>(
                         <div className="flex items-center justify-between bg-[#D9D9D9] py-2 px-4 rounded-md">
                             <div className="flex items-center gap-4">
