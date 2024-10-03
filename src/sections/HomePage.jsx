@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const [income, setIncome] = useState(12000);
+  const [income, setIncome] = useState(120000);
   const [totalExpense, setTotalExpense] = useState(0);
   const buttons = ["Today", "Weekly", "Monthly"];
   const [activeButton, setActiveButton] = useState(0); // Default to first button
@@ -71,7 +71,7 @@ const HomePage = () => {
         
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-semibold">Recent Transactions</h2>
-          <Link to="/all-transactions" className="text-blue-600">
+          <Link to="/HomePage/AllTransactions" className="text-blue-600">
             View All
           </Link>
         </div>

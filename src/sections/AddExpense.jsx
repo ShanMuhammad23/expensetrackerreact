@@ -144,7 +144,7 @@ const AddExpense = () => {
 
           <button
             type="submit"
-            className="mt-auto w-full bg-[#7F3DFF] text-white text-xl py-3 rounded-xl hover:bg-[#6F2DFF] transition-colors"
+            className="mt-auto mb-8 w-full bg-[#7F3DFF] text-white text-xl py-3 rounded-xl hover:bg-[#6F2DFF] transition-colors"
           >
             Continue
           </button>
