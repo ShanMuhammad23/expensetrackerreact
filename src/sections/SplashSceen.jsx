@@ -5,7 +5,7 @@ const SplashSceen = () => {
     return (
         <section id="splashscreen" className="m-auto flex flex-col items-center">
             <div className="flex flex-col items-center justify-center w-[90%] ">
-                <img src={splashscreenhero} />
+                <img src={splashscreenhero} alt="Splash"/>
                 <div className="">
                     <h1 className="font-bold text-3xl mt-8 mx-6">Simple solution for your budget.</h1>
                     <p className="text-xl mt-6 mx-6">Count and distribute the income correctly...</p>

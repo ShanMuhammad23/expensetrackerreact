@@ -12,13 +12,13 @@ const HomePage = () => {
   useEffect(() => {
     const sum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
     setTotalExpense(sum);
-  }, [expenses]); // Empty dependency array since expenses is assumed to be constant
+  }, []);
 
   return (
     <section className="bg-[#C6C6C6] min-h-screen max-h-screen overflow-auto">
       <div className="bg-gradient-to-r from-[#FFF6E5] via-[#FFF6E5] to-[#F8EDD8] p-4 rounded-b-xl">
         <div className="flex justify-between">
-          <p className="text-xl">November 06, 2024</p>
+          <p className="text-xl">{new Date().toDateString()}</p>
           <div>
             <p className="text-lg">Shan</p>
           </div>
