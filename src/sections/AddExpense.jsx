@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { ArrowLeft } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
-
-const initialExpenses = [];
+import { useExpense } from './ExpenseContext';  // Import the context hook
+import { ArrowLeft } from "../constants";
 
 const AddExpense = () => {
-  const navigate = useNavigate();
-  const [expenses, setExpenses] = useState(initialExpenses);
+  const { addExpense } = useExpense();  // Use the context
   const [formData, setFormData] = useState({
     amount: "",
     category: "",
     description: "",
+    timeStamp:`${new Date().getHours()>12?new Date().getHours()-12:new Date().getHours}:${new Date().getMinutes()<10 ?'0'+ new Date().getMinutes():new Date().getMinutes()}`
   });
   const [errors, setErrors] = useState({});
 
@@ -47,24 +46,18 @@ const AddExpense = () => {
     e.preventDefault();
     if (validateForm()) {
       const newExpense = {
-        id: Date.now(), // Simple way to generate a unique ID
         ...formData,
         amount: parseFloat(formData.amount),
         date: new Date().toISOString().split("T")[0],
       };
 
-      // Add the new expense to the expenses array
-      setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+      // Use the addExpense function from context
+      addExpense(newExpense);
 
-      // Optional: Save to localStorage
-      const updatedExpenses = [...expenses, newExpense];
-      localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-
-      // Show success message (you can replace this with a proper notification system)
+      // Show success message
       alert("Expense added successfully!");
 
       // Navigate back to homepage
-      navigate("/Homepage");
     }
   };
 
