@@ -3,6 +3,7 @@ import AddExpense from "./sections/AddExpense";
 import AllTransactions from "./sections/AllTransactions";
 import HomePage from "./sections/HomePage";
 import SplashSceen from "./sections/SplashSceen";
+import Profile from "./sections/Profile";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
                 path="/HomePage/AllTransactions"
                 element={<AllTransactions />}
               />
+              <Route path="/HomePage/Profile" element={<Profile/>} />
             </Routes>
           </Router>
         </ExpenseProvider>

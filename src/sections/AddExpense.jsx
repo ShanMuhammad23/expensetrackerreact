@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useExpense } from './ExpenseContext';  // Import the context hook
+import { useExpense } from "./ExpenseContext"; // Import the context hook
 import { ArrowLeft } from "../constants";
+import Alert from "../Components/Alert";
 
 const AddExpense = () => {
-  const { addExpense } = useExpense();  // Use the context
+  const { addExpense } = useExpense();
+  const navigate = useNavigate();
+  const [alert, setAlert] = useState(false);
+  let currentHours = new Date().getHours();
+  let currentMinute = new Date().getMinutes();
+  let meridium = currentHours >= 12 ? "PM" : "AM";
   const [formData, setFormData] = useState({
     amount: "",
     category: "",
     description: "",
-    timeStamp:`${new Date().getHours()>12?new Date().getHours()-12:new Date().getHours}:${new Date().getMinutes()<10 ?'0'+ new Date().getMinutes():new Date().getMinutes()}`
+    timeStamp: `${currentHours >= 12 ? 12 - currentHours : currentHours}:${
+      currentMinute < 10
+        ? "0" + currentMinute + "" + meridium
+        : currentMinute + "" + meridium
+    }`,
   });
   const [errors, setErrors] = useState({});
 
@@ -53,11 +63,10 @@ const AddExpense = () => {
 
       // Use the addExpense function from context
       addExpense(newExpense);
-
-      // Show success message
-      alert("Expense added successfully!");
-
-      // Navigate back to homepage
+      setAlert(true);
+      setTimeout(() => {
+        navigate("/HomePage");
+      }, 4000);
     }
   };
 
@@ -67,7 +76,7 @@ const AddExpense = () => {
         <img src={ArrowLeft} alt="Back" className="w-6 h-6" />
         <h1 className="text-xl font-bold">Add a Transaction</h1>
       </Link>
-
+      {alert && <Alert message="Expense Added Successfully" type="success" />}
       <form onSubmit={handleSubmit} className="flex flex-col flex-1">
         <div className="px-4 md:px-6 py-8">
           <div className="mb-6">

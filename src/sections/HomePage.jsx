@@ -1,9 +1,10 @@
 import RecentTransactions from "../Components/RecentTransactions";
-import { downArrow,  upArrow } from "../constants";
+import { downArrow, upArrow } from "../constants";
 import Menu from "./Menu";
 import { useState, useEffect } from "react";
 import { useExpense } from "./ExpenseContext";
 import { Link } from "react-router-dom";
+import { currentDate } from "../constants";
 
 const HomePage = () => {
   const { expenses } = useExpense();
@@ -12,6 +13,7 @@ const HomePage = () => {
   const buttons = ["Today", "Weekly", "Monthly"];
   const [activeButton, setActiveButton] = useState(0);
 
+
   useEffect(() => {
     const sum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
     setTotalExpense(sum);
@@ -19,9 +21,9 @@ const HomePage = () => {
 
   return (
     <section className="bg-[#C6C6C6] min-h-screen max-h-screen overflow-auto">
-      <div className="bg-gradient-to-r from-[#FFF6E5] via-[#FFF6E5] to-[#F8EDD8] p-4 rounded-b-xl">
+      <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl">
         <div className="flex justify-between">
-          <p className="text-xl">{new Date().toDateString()}</p>
+          <p className="text-xl">{currentDate}</p>
           <div>
             <p className="text-lg">Shan</p>
           </div>
@@ -71,16 +73,14 @@ const HomePage = () => {
             </button>
           ))}
         </div>
-        
+
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-semibold">Recent Transactions</h2>
           <Link to="/HomePage/AllTransactions" className="text-blue-600">
             View All
           </Link>
         </div>
-        <RecentTransactions/>
-
-       
+        <RecentTransactions />
       </div>
 
       <Menu />

@@ -18,6 +18,7 @@ const expenseReducer = (state, action) => {
 };
 
 export const ExpenseProvider = ({ children }) => {
+  let currentDate=`${new Date().getDate() < 10 ? "0" + new Date().getDate() : new Date().getDate()} , ${new Date().getMonth() < 10 ? "0" + new Date().getMonth() : new Date().getMonth()} , ${new Date().getFullYear()}`
   const [expenses, dispatch] = useReducer(expenseReducer, [], () => {
     const localData = localStorage.getItem("expenses");
     return localData ? JSON.parse(localData) : [];
