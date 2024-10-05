@@ -4,7 +4,7 @@ import Menu from "./Menu";
 import { useState, useEffect } from "react";
 import { useExpense } from "./ExpenseContext";
 import { Link } from "react-router-dom";
-import { currentDate } from "../constants";
+import { currentDate, UserImage } from "../constants";
 
 const HomePage = () => {
   const { expenses } = useExpense();
@@ -22,8 +22,9 @@ const HomePage = () => {
   return (
     <section className="bg-[#C6C6C6] min-h-screen max-h-screen overflow-auto">
       <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl">
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <p className="text-xl">{currentDate}</p>
+          <img src={UserImage} alt="User Picture" className="h-[60px] w-[60px] border-4 border-violet-900 rounded-full" />
           <div>
             <p className="text-lg">Shan</p>
           </div>

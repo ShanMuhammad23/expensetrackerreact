@@ -15,7 +15,7 @@ const AddExpense = () => {
     amount: "",
     category: "",
     description: "",
-    timeStamp: `${currentHours >= 12 ? 12 - currentHours : currentHours}:${
+    timeStamp: `${currentHours >= 12 ? currentHours - 12 : currentHours}:${
       currentMinute < 10
         ? "0" + currentMinute + "" + meridium
         : currentMinute + "" + meridium

@@ -22,7 +22,7 @@ const Menu = () => {
           </span>
         </Link>
         <Link
-          to="AddExpense"
+          to="/AddExpense"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5   group"
         >
@@ -31,7 +31,7 @@ const Menu = () => {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-plus-square w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+            className="bi bi-plus-square w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
             viewBox="0 0 16 16"
           >
             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
@@ -41,7 +41,8 @@ const Menu = () => {
             Add
           </span>
         </Link>
-        <button
+        <Link
+          to="/Stats"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5   group"
         >
@@ -63,9 +64,9 @@ const Menu = () => {
           <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
             Stats
           </span>
-        </button>
+        </Link>
         <Link
-          to="/HomePage/Profile"
+          to="Profile"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5   group"
         >
