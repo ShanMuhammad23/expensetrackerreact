@@ -27,14 +27,14 @@ const AllTransactions = () => {
   return (
     <>
       {confirm && (
-        <div className="absolute z-1000 w-full h-screen flex items-center justify-center">
+        <div className="absolute z-50 w-full h-screen flex items-center justify-center">
           <motion.div
           initial={{scale:0.5}}
           whileInView={{scale:1}}
           
 
             role="alert"
-            class="mx-auto max-w-lg rounded-lg border border-stone bg-stone-100 w-[95%] m-auto p-4 shadow-lg sm:p-6 lg:p-8"
+            class="mx-auto z-50 max-w-lg rounded-lg border border-stone bg-stone-100 w-[95%] m-auto p-4 shadow-lg sm:p-6 lg:p-8"
           >
             <div class="flex items-center gap-4">
               <span class="shrink-0 rounded-full bg-red-600 p-2 text-white">
