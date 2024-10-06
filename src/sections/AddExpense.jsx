@@ -3,26 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useExpense } from "./ExpenseContext"; // Import the context hook
 import { ArrowLeft } from "../constants";
 import Alert from "../Components/Alert";
+import { motion } from "framer-motion";
 
 const AddExpense = () => {
+
   const { addExpense } = useExpense();
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
-  let currentHours = new Date().getHours();
-  let currentMinute = new Date().getMinutes();
-  let meridium = currentHours >= 12 ? "PM" : "AM";
   const [formData, setFormData] = useState({
     amount: "",
     category: "",
     description: "",
-    timeStamp: `${currentHours >= 12 ? currentHours - 12 : currentHours}:${
-      currentMinute < 10
-        ? "0" + currentMinute + "" + meridium
-        : currentMinute + "" + meridium
-    }`,
+    timeStamp: new Date().toLocaleDateString(),
   });
   const [errors, setErrors] = useState({});
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -71,7 +65,11 @@ const AddExpense = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-r from-[#FFF6E5] via-[#FFF6E5] to-[#F8EDD8] flex flex-col">
+    <motion.section
+      initial={{ opacity: 0.5 }}
+      whileInView={{ opacity: 1 }}
+      className="min-h-screen bg-gradient-to-r from-[#FFF6E5] via-[#FFF6E5] to-[#F8EDD8] flex flex-col"
+    >
       <Link to="/Homepage" className="flex items-center gap-4 p-4 md:p-6">
         <img src={ArrowLeft} alt="Back" className="w-6 h-6" />
         <h1 className="text-xl font-bold">Add a Transaction</h1>
@@ -152,7 +150,7 @@ const AddExpense = () => {
           </button>
         </div>
       </form>
-    </section>
+    </motion.section>
   );
 };
 

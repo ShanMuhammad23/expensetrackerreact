@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { currentDate, UserImage } from "../constants";
 import { useUser } from "./ExpenseContext";
 import UserSetup from "./UserSetup";
-
+import { motion } from "framer-motion";
 const HomePage = () => {
   const { expenses } = useExpense();
   const [Adduser, setAddUser] = useState(false);
@@ -30,7 +30,11 @@ const HomePage = () => {
   return (
     <>
       {Adduser && <UserSetup />}
-      <section className="bg-[#C6C6C6] min-h-screen max-h-screen overflow-auto">
+      <motion.section
+        initial={{ opacity: 0.5 }}
+        whileInView={{ opacity: 1 }}
+        className="bg-[#C6C6C6] min-h-screen max-h-screen overflow-auto"
+      >
         <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl">
           <div className="flex justify-between items-center mb-4">
             <p className="text-xl">{currentDate}</p>
@@ -74,7 +78,9 @@ const HomePage = () => {
               />
               <div>
                 <p>Income</p>
-                <p className="font-semibold text-[22px]">{user.income || "Set Income"}</p>
+                <p className="font-semibold text-[22px]">
+                  {user.income || "Set Income"}
+                </p>
               </div>
             </div>
             {/* Expense Card */}
@@ -105,7 +111,7 @@ const HomePage = () => {
         </div>
 
         <Menu />
-      </section>
+      </motion.section>
     </>
   );
 };

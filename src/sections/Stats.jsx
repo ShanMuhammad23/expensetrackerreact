@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "../constants";
 import { useExpense } from "./ExpenseContext";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Stats = () => {
   const { expenses } = useExpense();
@@ -45,7 +46,9 @@ const Stats = () => {
     }
   }, expenses);
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0.5 }}
+      whileInView={{ opacity: 1 }}
       id="Stats"
       className="bg-gradient-to-r from-[#e0d4be] via-[#d6d0c5] to-[#cdc7ba] min-h-screen"
     >
@@ -73,25 +76,24 @@ const Stats = () => {
                 </div>
                 <div className="mt-2 text-sm text-gray-600 w-full">
                   <div className="h-4  mt-2 bg-[#F1F1FA] rounded-full">
-                    <div
-                      className="bg-[#7F3DFF] h-full rounded-full "
-                      style={{
-                        width: `${
+                    <motion.div
+                    initial={{width:1}}
+                    whileInView={{width:`${
                           (cat.totalAmount / report.grandTotal) * 100
-                        }%`,
-                      }}
-                    ></div>
+                        }%`}}
+                      className="bg-[#7F3DFF] h-full rounded-full "
+                      
+                    ></motion.div>
                   </div>
                 </div>
               </div>
             ))}
-        
           </div>
         )}
       </div>
 
       <Menu />
-    </section>
+    </motion.section>
   );
 };
 

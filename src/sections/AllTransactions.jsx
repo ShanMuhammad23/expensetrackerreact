@@ -4,17 +4,25 @@ import { useExpense } from "./ExpenseContext";
 import { useState } from "react";
 import Alert from "../Components/Alert";
 import { motion } from "framer-motion";
+import { div } from "framer-motion/client";
 
 const AllTransactions = () => {
   const { deleteExpense } = useExpense();
-  const [deleteid,setDeleteId]=useState("")
+  const [deleteid,setDeleteId]=useState({
+
+  })
   const [alert, setAlert] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const { expenses } = useExpense();
-  function deleteanExpense(id) {
+  function deleteanExpense(id,category,description,timeStamp,amount) {
     setConfirm(true);
-    setDeleteId(id)
-    return id
+    setDeleteId({
+        id,
+        category,
+        description,
+        timeStamp,
+        amount
+    })
   }
   function confirmDeletion(id){
     deleteExpense(id);
@@ -27,10 +35,11 @@ const AllTransactions = () => {
   return (
     <>
       {confirm && (
-        <div className=" z-50 w-full h-screen flex items-center justify-center">
+        <div className="fixed z-50 w-full h-screen flex items-center justify-center">
           <motion.div
           initial={{scale:0.5}}
           whileInView={{scale:1}}
+
           
 
             role="alert"
@@ -57,6 +66,12 @@ const AllTransactions = () => {
               </p>
             </div>
 
+            <div className="text-gray-600 mt-4 mb-2 flex flex-col gap-2 ml-12">
+               <p className="text-lg font-semibold">Category: {deleteid.category}</p>
+                <p>Description: {deleteid.description}</p>
+                <p>Amount: {deleteid.amount}</p>
+                <p>Added On: {deleteid.timeStamp}</p>
+            </div> 
             
 
             <div class="mt-6 sm:flex sm:gap-4">
@@ -95,6 +110,7 @@ const AllTransactions = () => {
             <motion.div className="flex justify-between px-8 bg-[#FCFCFC] rounded-full py-2"
             initial={{translateY:10}}
             whileInView={{translateY:0}}
+            
             >
               <div className="flex flex-col gap-2">
                 <p className="font-bold text-lg">{expense.category}</p>
@@ -110,7 +126,7 @@ const AllTransactions = () => {
                 <div>
                   <p
                     onClick={() => {
-                      deleteanExpense(expense.id);
+                      deleteanExpense(expense.id,expense.category,expense.description,expense.timeStamp,expense.amount);
                     }}
                     className="text-lg text-red-600 border border-red-600 p-2 h-8 w-8 flex items-center justify-center rounded-full cursor-pointer"
                   >
