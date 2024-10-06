@@ -15,7 +15,7 @@ const AllTransactions = () => {
                 <div className="flex justify-between px-8 bg-[#FCFCFC] rounded-full py-2">
                     <div className="flex flex-col gap-2">
                         <p className="font-bold text-lg">{expense.category}</p>
-                        <p className="text-gray-500">{expense.description}</p>
+                        <p className="text-gray-500">{expense.description.substring(0,20)}</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-red-500 font-bold">{expense.amount}</p>

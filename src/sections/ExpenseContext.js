@@ -1,11 +1,16 @@
-import React, { createContext, useContext, useReducer, useEffect,useState } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { expenses as initialExpenses } from "../constants";
 
 const ExpenseContext = createContext();
+const UserContext=createContext();
 
+// Action Types
 const ADD_EXPENSE = "ADD_EXPENSE";
 const DELETE_EXPENSE = "DELETE_EXPENSE";
+const ADD_USER="ADD_USER"
+const SHOW_USERFORM="SHOW_USERFORM"
 
+// Expense Reducer
 const expenseReducer = (state, action) => {
   switch (action.type) {
     case ADD_EXPENSE:
@@ -17,15 +22,16 @@ const expenseReducer = (state, action) => {
   }
 };
 
+
+
+
+
+// Expense Provider
 export const ExpenseProvider = ({ children }) => {
-  let currentDate=`${new Date().getDate() < 10 ? "0" + new Date().getDate() : new Date().getDate()} , ${new Date().getMonth() < 10 ? "0" + new Date().getMonth() : new Date().getMonth()} , ${new Date().getFullYear()}`
   const [expenses, dispatch] = useReducer(expenseReducer, [], () => {
     const localData = localStorage.getItem("expenses");
-    return localData ? JSON.parse(localData) : [];
-
-    return initialExpenses;
+    return localData ? JSON.parse(localData) : initialExpenses;
   });
-  
 
   useEffect(() => {
     localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -45,19 +51,14 @@ export const ExpenseProvider = ({ children }) => {
     });
   };
 
-  const contextValue = {
-    expenses,
-    addExpense,
-    deleteExpense,
-  };
-
   return (
-    <ExpenseContext.Provider value={contextValue}>
+    <ExpenseContext.Provider value={{ expenses, addExpense, deleteExpense }}>
       {children}
     </ExpenseContext.Provider>
   );
 };
 
+// Custom Hooks for Expense and User Context
 export const useExpense = () => {
   const context = useContext(ExpenseContext);
   if (!context) {
@@ -65,3 +66,56 @@ export const useExpense = () => {
   }
   return context;
 };
+
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useExpense must be used within an ExpenseProvider");
+  }
+  return context;
+};
+
+
+// User Reducer
+const userReducer = (state, action) => {
+  switch (action.type) {
+    case ADD_USER:
+      return action.payload;
+    
+    default:
+      return state;
+  }
+};
+
+// User Provider
+export const UserProvider = ({ children }) => {
+  const [user, dispatch] = useReducer(userReducer, {}, (initialArg) => {
+    const localData = localStorage.getItem("user");
+    return localData ? JSON.parse(localData) : initialArg;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  const addUser = (user) => {
+    dispatch({
+      type: ADD_USER,
+      payload: { ...user, id: Date.now() },
+    });
+  };
+const showuserform =(ShowUserForm)=>{
+  dispatch({
+    type:SHOW_USERFORM,
+    
+  })
+}
+  
+  return (
+    <UserContext.Provider value={{ user, addUser}}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+

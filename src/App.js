@@ -6,6 +6,8 @@ import SplashSceen from "./sections/SplashSceen";
 import Stats from "./sections/Stats";
 import Profile from "./sections/Profile";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { UserProvider } from "./sections/ExpenseContext";
+import UserSetup from "./sections/UserSetup";
 const App = () => {
   return (
     <main
@@ -14,20 +16,24 @@ const App = () => {
     >
       <section className="w-full sm:w-[60%] bg-white ">
         <ExpenseProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<SplashSceen />} />
-              <Route path="/HomePage" element={<HomePage />} />
-              <Route path="/AddExpense" element={<AddExpense />} />
-              <Route
-                path="/HomePage/AllTransactions"
-                element={<AllTransactions />}
-              />
-              <Route path="/HomePage/Profile" element={<Profile/>} />
-              <Route path="/Stats" element={<Stats/>} />
-            </Routes>
-          </Router>
+            <UserProvider>
+              <Router>
+                <Routes>
+                  <Route path="/" element={<SplashSceen />} />
+                  <Route path="/HomePage" element={<HomePage />} />
+                  <Route path="/Profile" element={<Profile />} />
+
+                  <Route
+                    path="/AllTransactions"
+                    element={<AllTransactions />}
+                  />
+                  <Route path="/AddExpense" element={<AddExpense />} />
+                  <Route path="/Stats" element={<Stats />} />
+                </Routes>
+              </Router>
+            </UserProvider>
         </ExpenseProvider>
+
       </section>
     </main>
   );

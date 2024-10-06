@@ -52,7 +52,7 @@ const ProfileMenu = () => {
         </div>
         <span className="font-medium text-xl">Export Data</span>
       </div>
-      <div className="flex items-center p-4 gap-4 border-b-2">
+      <div className="flex items-center p-4 gap-4 ">
         <div className="p-4 bg-[#EEE5FF] rounded-xl border">
           <svg
             xmlns="http://www.w3.org/2000/svg"
