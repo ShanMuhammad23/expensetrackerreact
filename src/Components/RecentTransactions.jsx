@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { upArrow } from "../constants";
 import { useExpense } from "../sections/ExpenseContext";
+import { delay, motion } from "framer-motion";
 
 // Utility functions for filtering
 const filterDaily = (expenses) => {
@@ -43,7 +44,7 @@ const RecentTransactions = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mb-24">
       {/* Filter Buttons */}
       <div className="text-white w-full flex justify-between gap-2 mb-6 border-2 border-white rounded-full">
         {buttons.map((button, index) => (
@@ -60,12 +61,14 @@ const RecentTransactions = () => {
 
       {/* Display Filtered Expenses */}
       {filteredExpenses.length === 0 ? (
-        <p className="text-center mt-6 text-red-500 font-bold ">No expenses found for.</p>
+        <p className="text-center mt-6 text-red-500 font-bold ">No expenses found</p>
       ) : (
         filteredExpenses.map((expense, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            {/* Main Expense Item */}
-            <div
+          <div key={index} className="flex flex-col gap-2 ">
+            <motion.div
+            initial={{translateY:10}}
+            whileInView={{translateY:0}}
+
               className="flex items-center justify-between bg-[#D9D9D9] py-2 px-4 rounded-md cursor-pointer"
               onClick={() => toggleDetails(index)}
             >
@@ -74,9 +77,8 @@ const RecentTransactions = () => {
                 <p className="font-semibold text-lg">{expense.amount}</p>
               </div>
               <p className="text-gray-600">{expense.category}</p>
-            </div>
+            </motion.div>
 
-            {/* Conditional Rendering of Details */}
             {expenseDetails === index && (
               <div className="bg-gray-200 p-4 rounded-md shadow-md">
                 <p><strong>Date:</strong> {expense.date}</p>

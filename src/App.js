@@ -5,14 +5,13 @@ import HomePage from "./sections/HomePage";
 import SplashSceen from "./sections/SplashSceen";
 import Stats from "./sections/Stats";
 import Profile from "./sections/Profile";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { UserProvider } from "./sections/ExpenseContext";
-import UserSetup from "./sections/UserSetup";
 const App = () => {
   return (
     <main
       id="main"
-      className="flex flex-column items-center justify-center max-h-[100vh]"
+      className="flex flex-column items-center justify-center max-h-[100vh] "
     >
       <section className="w-full sm:w-[60%] bg-white ">
         <ExpenseProvider>

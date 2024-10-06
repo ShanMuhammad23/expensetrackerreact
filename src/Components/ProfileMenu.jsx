@@ -2,7 +2,7 @@ import React from "react";
 
 const ProfileMenu = () => {
   return (
-    <section id="ProfileMenu" className="bg-white rounded-xl h-max w-[90%] m-auto mb-12">
+    <section id="ProfileMenu" className="bg-white rounded-xl h-max w-[95%] mt-4 m-auto ">
       <div className="flex items-center p-4 gap-4 border-b-2">
         <div className="p-4 bg-[#EEE5FF] rounded-xl border">
           <svg

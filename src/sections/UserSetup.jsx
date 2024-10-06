@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useUser } from "./ExpenseContext";
 import { EditUserForm } from "../constants";
+import { motion } from "framer-motion";
 const UserSetup = () => {
   const [showAddUser,setShowadduser]=useState(true)
   const { addUser } = useUser();
@@ -30,9 +31,12 @@ const UserSetup = () => {
   };
 if(showAddUser){
   return (
-    <div className="absolute flex items-center justify-center w-full h-full ">
+    <motion.div className="absolute flex items-center justify-center w-full h-full "
+     initial={{opacity:0,scale:0.5}}
+     whileInView={{opacity:1,scale:1}}
+    >
       <form
-        className="flex flex-col p-8 bg-white border border-[#8a8484] rounded-xl gap-2 w-2/3"
+        className="flex flex-col p-8 bg-white border border-[#8a8484] rounded-xl gap-2 w-[90%] m-auto"
         onSubmit={handleSubmit}
       >
         <h2 className="text-xl text-center">Set Up Your Profile</h2>
@@ -61,7 +65,7 @@ if(showAddUser){
           Save
         </button>
       </form>
-    </div>
+    </motion.div>
   )};
 };
 
