@@ -4,13 +4,17 @@ import { useExpense } from "./ExpenseContext";
 import { useState } from "react";
 import Alert from "../Components/Alert";
 import { motion } from "framer-motion";
-import { div } from "framer-motion/client";
 
 const AllTransactions = () => {
   const { deleteExpense } = useExpense();
   const [deleteid,setDeleteId]=useState({
-
+    id:"",
+    category:"",
+    description:"",
+    timeStamp:"",
+    amount:""
   })
+  const [selectedId,setselectedId]=useState("")
   const [alert, setAlert] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const { expenses } = useExpense();
@@ -23,9 +27,10 @@ const AllTransactions = () => {
         timeStamp,
         amount
     })
+    setselectedId(deleteid.id)
   }
-  function confirmDeletion(id){
-    deleteExpense(id);
+  function confirmDeletion(selectedId){
+    deleteExpense(selectedId.id);
     setAlert(true);
     setConfirm(false);
     setTimeout(() => {
@@ -43,25 +48,25 @@ const AllTransactions = () => {
           
 
             role="alert"
-            class="mx-auto z-50 max-w-lg rounded-lg border border-stone bg-stone-100 w-[95%] m-auto p-4 shadow-lg sm:p-6 lg:p-8"
+            className="mx-auto z-50 max-w-lg rounded-lg border border-stone bg-stone-100 w-[95%] m-auto p-4 shadow-lg sm:p-6 lg:p-8"
           >
-            <div class="flex items-center gap-4">
-              <span class="shrink-0 rounded-full bg-red-600 p-2 text-white">
+            <div className="flex items-center gap-4">
+              <span className="shrink-0 rounded-full bg-red-600 p-2 text-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="white"
-                  class="h-4 w-4"
+                  className="h-4 w-4"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </span>
 
-              <p class="font-medium sm:text-lg text-red-600">
+              <p className="font-medium sm:text-lg text-red-600">
                 Delete this expense?
               </p>
             </div>
@@ -74,11 +79,11 @@ const AllTransactions = () => {
             </div> 
             
 
-            <div class="mt-6 sm:flex sm:gap-4">
+            <div className="mt-6 sm:flex sm:gap-4">
               <a
               onClick={(()=>{confirmDeletion(deleteid)})}
                 href="#"
-                class="inline-block w-full rounded-lg bg-red-600 px-5 py-3 text-center text-sm font-semibold text-white sm:w-auto"
+                className="inline-block w-full rounded-lg bg-red-600 px-5 py-3 text-center text-sm font-semibold text-white sm:w-auto"
               >
                 Yes
               </a>
@@ -86,7 +91,7 @@ const AllTransactions = () => {
               <a
               onClick={(()=>{setConfirm(false)})}
                 href="#"
-                class="mt-2 inline-block w-full rounded-lg bg-stone-300 px-5 py-3 text-center text-sm font-semibold text-gray-800 sm:mt-0 sm:w-auto"
+                className="mt-2 inline-block w-full rounded-lg bg-stone-300 px-5 py-3 text-center text-sm font-semibold text-gray-800 sm:mt-0 sm:w-auto"
               >
                 No
               </a>
@@ -107,7 +112,7 @@ const AllTransactions = () => {
         </div>
         <div className="flex flex-col gap-4 px-4 sticky w-full top-24 overflow-y-scroll">
           {expenses.map((expense) => (
-            <motion.div className="flex justify-between px-8 bg-[#FCFCFC] rounded-full py-2"
+            <motion.div className="flex justify-between px-8 bg-[#FCFCFC] rounded-full py-2" key={expense.id}
             initial={{translateY:10}}
             whileInView={{translateY:0}}
             
