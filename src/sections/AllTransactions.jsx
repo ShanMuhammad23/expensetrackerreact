@@ -27,7 +27,7 @@ const AllTransactions = () => {
   return (
     <>
       {confirm && (
-        <div className="absolute z-50 w-full h-screen flex items-center justify-center">
+        <div className=" z-50 w-full h-screen flex items-center justify-center">
           <motion.div
           initial={{scale:0.5}}
           whileInView={{scale:1}}
