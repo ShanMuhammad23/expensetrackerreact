@@ -44,9 +44,8 @@ const RecentTransactions = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 mb-24">
-      {/* Filter Buttons */}
-      <div className="text-white w-full flex justify-between gap-2 mb-6 border-2 border-white rounded-full">
+    <div className="flex flex-col gap-4 pb-24">
+      <div className="text-white w-full flex justify-between gap-2  border-2 border-white rounded-full">
         {buttons.map((button, index) => (
           <button
             key={index}

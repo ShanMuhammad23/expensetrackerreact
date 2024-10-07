@@ -14,7 +14,7 @@ const Profile = () => {
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
         id="Profile"
-        className="bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] flex flex-col   h-[90vh] pb-6"
+        className="bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] flex flex-col   h-[100vh] pb-16"
       >
         <section className=" flex items-center w-[90%] rounded-xl m-auto justify-between bg-slate-300 bg-opacity-25 px-4 py-8">
           <div>
