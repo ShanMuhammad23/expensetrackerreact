@@ -1,40 +1,44 @@
-import { ExpenseProvider } from "./sections/ExpenseContext";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ExpenseProvider, UserProvider } from "./sections/ExpenseContext";
+import { useState } from "react";
+
+// Import components
 import AddExpense from "./sections/AddExpense";
 import AllTransactions from "./sections/AllTransactions";
 import HomePage from "./sections/HomePage";
-import SplashSceen from "./sections/SplashSceen";
 import Stats from "./sections/Stats";
+import SplashScreen from './sections/SplashSceen'
 import Profile from "./sections/Profile";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { UserProvider } from "./sections/ExpenseContext";
-const App = () => {
+
+const App = ({ showAddUserState = false }) => {  // Added default value
+  const [userForm, setUserForm] = useState(showAddUserState);
+  
   return (
-    <main
-      id="main"
-      className="flex flex-column items-center justify-center max-h-[100vh] "
-    >
-      <section className="w-full sm:w-[60%] bg-white ">
+    <main className="flex flex-col items-center justify-center min-h-screen">
+      <section className="w-full sm:w-3/5 bg-white">
         <ExpenseProvider>
-            <UserProvider>
-              <Router>
-                <Routes>
-                  <Route path="/" element={<SplashSceen />} />
-                  <Route path="/HomePage" element={<HomePage />} />
-                  <Route path="/Profile" element={<Profile />} />
-
-                  <Route
-                    path="/AllTransactions"
-                    element={<AllTransactions />}
-                  />
-                  <Route path="/AddExpense" element={<AddExpense />} />
-                  <Route path="/Stats" element={<Stats />} />
-                </Routes>
-              </Router>
-            </UserProvider>
+          <UserProvider>
+            <Router>
+              <Routes>
+                <Route path="/" element={<SplashScreen />} />
+                <Route 
+                  path="/HomePage" 
+                  element={<HomePage showAddUserState={showAddUserState} />} 
+                />
+                <Route 
+                  path="/Profile" 
+                  element={<Profile showAddUserState={userForm} setUserForm={setUserForm} />} 
+                />
+                <Route path="/AllTransactions" element={<AllTransactions />} />
+                <Route path="/AddExpense" element={<AddExpense />} />
+                <Route path="/Stats" element={<Stats />} />
+              </Routes>
+            </Router>
+          </UserProvider>
         </ExpenseProvider>
-
       </section>
     </main>
   );
 };
+
 export default App;

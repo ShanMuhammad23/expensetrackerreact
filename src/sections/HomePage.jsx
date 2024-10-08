@@ -33,9 +33,9 @@ const HomePage = () => {
       <motion.section
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
-        className="bg-[#C6C6C6] min-h-screen max-h-screen overflow-auto"
+        className="bg-[#C6C6C6] min-h-screen max-h-screen py-8"
       >
-        <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl">
+        <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl ">
           <div className="flex justify-between items-center mb-4">
             <p className="text-xl">{currentDate}</p>
             <div className="flex items-center gap-4">
@@ -98,7 +98,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="p-4">
+        <div className="p-4 ">
           {/* Recent Transactions Section */}
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-semibold text-lg">Recent Transactions</h2>
@@ -110,8 +110,8 @@ const HomePage = () => {
           <RecentTransactions />
         </div>
 
-        <Menu />
       </motion.section>
+      <Menu />
     </>
   );
 };

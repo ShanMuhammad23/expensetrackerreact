@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { upArrow } from "../constants";
 import { useExpense } from "../sections/ExpenseContext";
-import { delay, motion } from "framer-motion";
+import {  motion } from "framer-motion";
 
 // Utility functions for filtering
 const filterDaily = (expenses) => {
@@ -44,7 +44,7 @@ const RecentTransactions = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 pb-24">
+    <div className="flex flex-col gap-4 pb-24 sticky ">
       <div className="text-white w-full flex justify-between gap-2  border-2 border-white rounded-full">
         {buttons.map((button, index) => (
           <button

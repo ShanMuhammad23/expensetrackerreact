@@ -46,11 +46,12 @@ const Stats = () => {
     }
   }, expenses);
   return (
+    <>
     <motion.section
       initial={{ opacity: 0.5 }}
       whileInView={{ opacity: 1 }}
       id="Stats"
-      className="bg-gradient-to-r from-[#e0d4be] via-[#d6d0c5] to-[#cdc7ba] min-h-screen"
+      className="bg-gradient-to-r from-[#e0d4be] via-[#d6d0c5] relative to-[#cdc7ba] h-[100vh] py-8  "
     >
       <Link
         to="/Homepage"
@@ -92,8 +93,9 @@ const Stats = () => {
         )}
       </div>
 
-      <Menu />
     </motion.section>
+    <Menu />
+    </>
   );
 };
 
