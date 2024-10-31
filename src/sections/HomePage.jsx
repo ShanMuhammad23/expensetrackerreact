@@ -8,9 +8,9 @@ import { currentDate, UserImage } from "../constants";
 import { useUser } from "./ExpenseContext";
 import UserSetup from "./UserSetup";
 import { motion } from "framer-motion";
-const HomePage = () => {
+const HomePage = ({ showAddUserState }) => {
   const { expenses } = useExpense();
-  const [Adduser, setAddUser] = useState(false);
+  const [Adduser, setAddUser] = useState(showAddUserState);
   const { user } = useUser();
   const [totalExpense, setTotalExpense] = useState(0);
 
@@ -20,6 +20,7 @@ const HomePage = () => {
   useEffect(() => {
     const sum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
     setTotalExpense(sum);
+    alert(Adduser)
   }, [expenses]);
 
   useEffect(() => {
@@ -109,7 +110,6 @@ const HomePage = () => {
 
           <RecentTransactions />
         </div>
-
       </motion.section>
       <Menu />
     </>
