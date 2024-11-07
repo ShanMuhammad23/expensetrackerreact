@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useUser } from "./ExpenseContext";
 import { EditUserForm } from "../constants";
 import { motion } from "framer-motion";
-const UserSetup = ({showAddUserState }) => {
-  const [showAddUser,setShowadduser]=useState(showAddUserState)
+const UserSetup = () => {
+  const [showAddUser,setShowadduser]=useState(false)
   const { addUser } = useUser();
   const [formData, setFormData] = useState({
     name: "",

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 const Menu = () => {
   return (
-    <div className="sticky bottom-0 h-16 w-full z-50   bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 rounded-xl">
+    <div className="sticky bottom-0 h-16 w-full    bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 rounded-xl">
       <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
         <Link
           to="/HomePage"
@@ -84,7 +84,6 @@ const Menu = () => {
           </span>
         </Link>
       </div>
-      
     </div>
   );
 };

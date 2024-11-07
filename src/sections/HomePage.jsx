@@ -20,7 +20,6 @@ const HomePage = ({ showAddUserState }) => {
   useEffect(() => {
     const sum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
     setTotalExpense(sum);
-    alert(Adduser)
   }, [expenses]);
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const HomePage = ({ showAddUserState }) => {
       <motion.section
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
-        className="bg-[#C6C6C6] min-h-screen max-h-screen py-8"
+        className="bg-[#C6C6C6] min-h-screen max-h-screen px-2"
       >
         <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl ">
           <div className="flex justify-between items-center mb-4">

@@ -10,16 +10,9 @@ import Stats from "./sections/Stats";
 import SplashScreen from "./sections/SplashSceen";
 import Profile from "./sections/Profile";
 
-const App = ({ showAddUserState = false }) => {
+const App = () => {
   // Added default value
-  const [userForm, setUserForm] = useState(showAddUserState);
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser.name=="undefined") {
-      showAddUserState = true;
-      alert(showAddUserState)
-    }
-  }, [showAddUserState]);
+ 
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
@@ -31,14 +24,13 @@ const App = ({ showAddUserState = false }) => {
                 <Route path="/" element={<SplashScreen />} />
                 <Route
                   path="/HomePage"
-                  element={<HomePage showAddUserState={showAddUserState} />}
+                  element={<HomePage  />}
                 />
                 <Route
                   path="/Profile"
                   element={
                     <Profile
-                      showAddUserState={userForm}
-                      setUserForm={setUserForm}
+                     
                     />
                   }
                 />

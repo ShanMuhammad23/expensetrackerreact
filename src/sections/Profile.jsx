@@ -5,18 +5,18 @@ import { useState } from "react";
 import { UserImage } from "../constants";
 import { useUser } from "./ExpenseContext";
 import { motion } from "framer-motion";
-const Profile = ({ showAddUserState }) => {
+const Profile = () => {
   const { user } = useUser();
-  const [showAddUser, setShowadduser] = useState(showAddUserState);
+  const [showAddUser, setShowadduser] = useState(false);
   return (
     <>
       <motion.section
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
         id="Profile"
-        className="bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] flex flex-col h-[100vh]   "
+        className="bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] flex flex-col h-[100vh]  justify-evenly px-2 "
       >
-        <section className=" flex items-center w-[90%] rounded-xl m-auto justify-between bg-slate-300 bg-opacity-25 px-4 py-8">
+        <section className=" flex items-center w-[90%] rounded-xl mx-auto justify-between bg-slate-300 bg-opacity-25 px-4 py-8 my-8">
           <div>
             <img
               src={UserImage}
@@ -28,7 +28,7 @@ const Profile = ({ showAddUserState }) => {
             <p className="text-[14px] text-[#91919F]">username</p>
             <p className="text-[24px] font-semibold">{user.name}</p>
           </div>
-          <div
+          <div className="cursor-pointer"
             onClick={() => {
               setShowadduser(true);
             }}
