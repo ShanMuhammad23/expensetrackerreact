@@ -16,8 +16,10 @@ const HomePage = () => {
   const { user } = useUser();
   const [totalExpense, setTotalExpense] = useState(0);
 
-  const AccountBalance = user.income - totalExpense;
-  let BalancePercentage = (AccountBalance / user.income) * 100;
+  // Add null checks for user object
+  const income = user?.income || 0;
+  const AccountBalance = user ? (income - totalExpense) : 0;
+  const BalancePercentage = income ? (AccountBalance / income) * 100 : 0;
 
   useEffect(() => {
     const sum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
@@ -26,8 +28,24 @@ const HomePage = () => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
-    if (!savedUser) toggleUserForm(true);
-  }, [toggleUserForm]);
+    if (!savedUser) {
+      toggleUserForm(true);
+    }
+  }, []);
+
+  // Helper function to render balance text with appropriate styling
+  const renderBalanceText = () => {
+    if (!user) return "Set Profile";
+    return AccountBalance;
+  };
+
+  // Helper function to get balance color
+  const getBalanceColor = () => {
+    if (!user) return "text-gray-500";
+    if (BalancePercentage > 70) return "text-green-500";
+    if (BalancePercentage > 30) return "text-yellow-500";
+    return "text-red-500";
+  };
 
   return (
     <>
@@ -43,7 +61,7 @@ const HomePage = () => {
             <p className="text-xl">{currentDate}</p>
             <div className="flex items-center gap-4">
               <div>
-                <p className="text-lg font-semibold">{user.name}</p>
+                <p className="text-lg font-semibold">{user?.name || "Guest"}</p>
               </div>
               <img
                 src={UserImage}
@@ -57,13 +75,8 @@ const HomePage = () => {
 
           <div className="flex flex-col items-center mt-6">
             <p className="text-[14px] text-[#91919F]">Account Balance</p>
-            <p
-              className={`font-semibold text-[40px] 
-                ${BalancePercentage > 70 ? "text-green-500" : ""} 
-                ${BalancePercentage <= 70 && BalancePercentage > 30 ? "text-yellow-500" : ""} 
-                ${BalancePercentage <= 30 ? "text-red-500" : ""}`}
-            >
-              {AccountBalance || "Set Profile"}
+            <p className={`font-semibold text-[40px] ${getBalanceColor()}`}>
+              {renderBalanceText()}
             </p>
           </div>
 
@@ -78,7 +91,7 @@ const HomePage = () => {
               <div>
                 <p>Income</p>
                 <p className="font-semibold text-[22px]">
-                  {user.income || "Set Income"}
+                  {user?.income || "Set Income"}
                 </p>
               </div>
             </div>

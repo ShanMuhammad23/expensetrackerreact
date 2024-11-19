@@ -20,7 +20,7 @@ const Profile = () => {
       >
         {/* Fixed Header Section */}
         <section className="flex-none p-2">
-          <div className="flex items-center w-[90%] rounded-xl mx-auto justify-between bg-slate-300 bg-opacity-25 px-4 py-8 my-8">
+          <div className="flex items-center w-[95%] rounded-xl mx-auto justify-between bg-slate-300 bg-opacity-25 px-4 py-8 my-8">
             <div>
               <img
                 src={UserImage}

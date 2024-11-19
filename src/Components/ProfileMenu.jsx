@@ -3,8 +3,8 @@ import React from "react";
 const ProfileMenu = () => {
   return (
     <section id="ProfileMenu" className="bg-white rounded-xl h-max w-[95%] mt-4 m-auto ">
-      <div className="flex items-center p-4 gap-4 border-b-2">
-        <div className="p-2 bg-[#EEE5FF] rounded-xl border">
+      <div className="flex items-center p-4 gap-4 border-b-2 cursor-pointer">
+        <div className="p-2 bg-[#EEE5FF] rounded-xl border hover:bg-slate-900">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -19,7 +19,7 @@ const ProfileMenu = () => {
 
         <span className="font-medium text-lg">Account</span>
       </div>
-      <div className="flex items-center p-4 gap-4 border-b-2">
+      <div className="flex items-center p-4 gap-4 border-b-2 cursor-pointer">
         <div className="p-2 bg-[#EEE5FF] rounded-xl border">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,8 +34,8 @@ const ProfileMenu = () => {
         </div>
         <span className="font-medium text-lg">Settings</span>
       </div>
-      <div className="flex items-center p-4 gap-4 border-b-2">
-        <div className="p-2 bg-[#EEE5FF] rounded-xl border">
+      <div className="flex items-center p-4 gap-4 border-b-2 cursor-pointer">
+        <div className="p-2 bg-[#EEE5FF] rounded-xl border ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -52,8 +52,8 @@ const ProfileMenu = () => {
         </div>
         <span className="font-medium text-lg">Export Data</span>
       </div>
-      <div className="flex items-center p-4 gap-4 ">
-        <div className="p-2 bg-[#EEE5FF] rounded-xl border">
+      <div className="flex items-center p-4 gap-4 cursor-pointer">
+        <div className="p-2 bg-[#EEE5FF] rounded-xl border ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"

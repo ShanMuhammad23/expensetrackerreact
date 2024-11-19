@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ExpenseProvider, UserProvider } from "./sections/ExpenseContext";
+import { ExpenseProvider, UserProvider,PopupProvider } from "./sections/ExpenseContext";
 import { useEffect, useState } from "react";
 
 // Import components
@@ -19,6 +19,7 @@ const App = () => {
       <section className="w-full sm:w-3/5 bg-white">
         <ExpenseProvider>
           <UserProvider>
+            <PopupProvider>
             <Router>
               <Routes>
                 <Route path="/" element={<SplashScreen />} />
@@ -39,6 +40,7 @@ const App = () => {
                 <Route path="/Stats" element={<Stats />} />
               </Routes>
             </Router>
+            </PopupProvider>
           </UserProvider>
         </ExpenseProvider>
       </section>
