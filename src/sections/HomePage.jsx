@@ -15,6 +15,7 @@ const HomePage = () => {
   const { showAddUserForm, toggleUserForm } = usePopup();
   const { user } = useUser();
   const [totalExpense, setTotalExpense] = useState(0);
+  const [isNewUser, setIsNewUser] = useState(false);
 
   // Add null checks for user object
   const income = user?.income || 0;
@@ -27,11 +28,15 @@ const HomePage = () => {
   }, [expenses]);
 
   useEffect(() => {
+    // Check both user context and localStorage
     const savedUser = localStorage.getItem("user");
-    if (!savedUser) {
+    const parsedUser = savedUser ? JSON.parse(savedUser) : null;
+
+    if (!parsedUser) {
+      setIsNewUser(true);
       toggleUserForm(true);
     }
-  }, []);
+  }, [toggleUserForm]);
 
   // Helper function to render balance text with appropriate styling
   const renderBalanceText = () => {
@@ -49,13 +54,15 @@ const HomePage = () => {
 
   return (
     <>
-      {showAddUserForm && <UserSetup />}
+      {/* Always show UserSetup if isNewUser is true */}
+      {(showAddUserForm || isNewUser) && <UserSetup />}
+      
       <motion.section
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
         className="bg-[#C6C6C6] h-screen flex flex-col fixed inset-0 overflow-hidden"
       >
-        {/* Fixed Header Section */}
+        {/* Rest of the component remains the same as in previous version */}
         <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl flex-none">
           <div className="flex justify-between items-center mb-4">
             <p className="text-xl">{currentDate}</p>

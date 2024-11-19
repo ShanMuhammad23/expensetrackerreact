@@ -5,13 +5,29 @@ import { UserImage } from "../constants";
 import { useUser } from "./ExpenseContext";
 import { usePopup } from "./ExpenseContext";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const Profile = () => {
   const { user } = useUser();
   const { showAddUserForm, toggleUserForm } = usePopup();
+  const [isNewUser, setIsNewUser] = useState(false);
+
+  useEffect(() => {
+    // Check both user context and localStorage
+    const savedUser = localStorage.getItem("user");
+    const parsedUser = savedUser ? JSON.parse(savedUser) : null;
+
+    if (!parsedUser) {
+      setIsNewUser(true);
+      toggleUserForm(true);
+    }
+  }, [toggleUserForm]);
 
   return (
     <>
+      {/* Always show UserSetup if isNewUser is true */}
+      {(showAddUserForm || isNewUser) && <UserSetup />}
+
       <motion.section 
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
@@ -30,7 +46,7 @@ const Profile = () => {
             </div>
             <div className="flex flex-col">
               <p className="text-[14px] text-[#91919F]">username</p>
-              <p className="text-[24px] font-semibold">{user.name}</p>
+              <p className="text-[24px] font-semibold">{user?.name || "Guest"}</p>
             </div>
             <button
               className="cursor-pointer hover:opacity-80 transition-opacity"
@@ -64,9 +80,6 @@ const Profile = () => {
         <div className="flex-none">
           <Menu />
         </div>
-
-        {/* User Setup Modal */}
-        {showAddUserForm && <UserSetup />}
       </motion.section>
     </>
   );
