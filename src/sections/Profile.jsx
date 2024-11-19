@@ -12,16 +12,7 @@ const Profile = () => {
   const { showAddUserForm, toggleUserForm } = usePopup();
   const [isNewUser, setIsNewUser] = useState(false);
 
-  useEffect(() => {
-    // Check both user context and localStorage
-    const savedUser = localStorage.getItem("user");
-    const parsedUser = savedUser ? JSON.parse(savedUser) : null;
-
-    if (!parsedUser) {
-      setIsNewUser(true);
-      toggleUserForm(true);
-    }
-  }, [toggleUserForm]);
+ 
 
   return (
     <>
@@ -75,7 +66,7 @@ const Profile = () => {
         <div className="flex-1 overflow-y-auto">
           <ProfileMenu />
         </div>
-
+            
           <Menu />
       </motion.section>
     </>

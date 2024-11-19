@@ -112,15 +112,14 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
     }
   }, [user]);
 
   const addUser = (userData) => {
+    const newUser = { ...userData, id: Date.now() };
     dispatch({
       type: ADD_USER,
-      payload: { ...userData, id: Date.now() },
+      payload: newUser,
     });
   };
 
@@ -138,11 +137,9 @@ export const PopupProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if (!storedUser) {
-      dispatch({ type: SHOW_USERFORM });
-    } else {
-      dispatch({ type: HIDE_USERFORM });
-    }
+    dispatch({ 
+      type: storedUser ? HIDE_USERFORM : SHOW_USERFORM 
+    });
   }, []);
 
   const toggleUserForm = () => {

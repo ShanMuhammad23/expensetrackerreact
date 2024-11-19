@@ -12,43 +12,39 @@ import { usePopup } from "./ExpenseContext";
 
 const HomePage = () => {
   const { expenses } = useExpense();
-  const { showAddUserForm, toggleUserForm } = usePopup();
+  const { showAddUserForm } = usePopup();
   const { user } = useUser();
   const [totalExpense, setTotalExpense] = useState(0);
-  const [isNewUser, setIsNewUser] = useState(false);
-
-  const AccountBalance = user.income - totalExpense;
+  
+  // Ensure user exists and has income before calculating account balance
+  const AccountBalance = user?.income ? user.income - totalExpense : 0;
 
   useEffect(() => {
     const sum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
     setTotalExpense(sum);
   }, [expenses]);
 
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    const parsedUser = savedUser ? JSON.parse(savedUser) : null;
-
-    if (!parsedUser) {
-      setIsNewUser(true);
-      toggleUserForm(true);
-    }
-  }, [toggleUserForm]);
+  // Add null check for user to prevent errors
+  if (!user) {
+    return <UserSetup />;
+  }
 
   return (
-    <>
-      {(showAddUserForm || isNewUser) && <UserSetup />}
+    <div className="relative h-screen flex flex-col bg-[#C6C6C6]">
+      {showAddUserForm && <UserSetup />}
 
-      <motion.section
+      <motion.div 
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
-        className="bg-[#C6C6C6] h-screen flex flex-col fixed inset-0 overflow-hidden"
+        className="flex-grow overflow-hidden flex flex-col"
       >
-        <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl flex-none">
+        {/* Header Section */}
+        <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl">
           <div className="flex justify-between items-center mb-4">
             <p className="text-xl">{currentDate}</p>
             <div className="flex items-center gap-4">
               <div>
-                <p className="text-lg font-semibold">{user?.name || "Guest"}</p>
+                <p className="text-lg font-semibold">{user.name}</p>
               </div>
               <img
                 src={UserImage}
@@ -60,13 +56,15 @@ const HomePage = () => {
 
           <hr className="bg-black mt-4" />
 
+          {/* Account Balance Section */}
           <div className="flex flex-col items-center mt-6">
             <p className="text-[14px] text-[#91919F]">Account Balance</p>
             <p className="font-semibold text-[40px]">
-              {AccountBalance}
+              {AccountBalance.toLocaleString()}
             </p>
           </div>
 
+          {/* Income and Expense Cards */}
           <div className="flex justify-between gap-4 mt-6">
             {/* Income Card */}
             <div className="w-[184px] h-[90px] flex items-center bg-[#00A86B] rounded-xl text-white p-2 gap-2">
@@ -78,10 +76,11 @@ const HomePage = () => {
               <div>
                 <p>Income</p>
                 <p className="font-semibold text-[22px]">
-                  {user?.income || "Set Income"}
+                  {user.income?.toLocaleString() || 0}
                 </p>
               </div>
             </div>
+            
             {/* Expense Card */}
             <div className="w-[184px] h-[90px] flex items-center bg-[#FD3C4A] rounded-xl text-white p-2 gap-2">
               <img
@@ -91,30 +90,32 @@ const HomePage = () => {
               />
               <div>
                 <p>Expenses</p>
-                <p className="font-semibold text-[22px]">{totalExpense}</p>
+                <p className="font-semibold text-[22px]">
+                  {totalExpense.toLocaleString()}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Scrollable Transactions Section */}
-        <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden">
-          <div className="p-4">
-            {/* Recent Transactions Section */}
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="font-semibold text-lg">Recent Transactions</h2>
-              <Link to="/AllTransactions" className="text-blue-600">
-                View All
-              </Link>
-            </div>
-
-            <RecentTransactions />
+        {/* Recent Transactions Section */}
+        <div className="flex-grow overflow-y-auto px-4 pt-4 pb-24">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="font-semibold text-lg">Recent Transactions</h2>
+            <Link to="/AllTransactions" className="text-blue-600">
+              View All
+            </Link>
           </div>
-        </div>
 
+          <RecentTransactions />
+        </div>
+      </motion.div>
+
+      {/* Absolute positioned Menu to ensure it's always visible */}
+      <div className="absolute bottom-0 left-0 right-0 z-10">
         <Menu />
-      </motion.section>
-    </>
+      </div>
+    </div>
   );
 };
 
