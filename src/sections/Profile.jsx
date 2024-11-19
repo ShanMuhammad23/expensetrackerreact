@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 const Profile = () => {
   const { user } = useUser();
   const { showAddUserForm, toggleUserForm } = usePopup();
-
   return (
     <div className="relative min-h-screen flex flex-col">
       {showAddUserForm && <UserSetup />}

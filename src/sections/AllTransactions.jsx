@@ -112,31 +112,31 @@ const AllTransactions = () => {
         </div>
         <div className="flex flex-col gap-4 px-4 sticky w-full top-24 overflow-y-scroll">
           {expenses.map((expense) => (
-            <motion.div className="flex justify-between px-8 bg-[#FCFCFC] rounded-full py-2" key={expense.id}
+            <motion.div className="flex justify-between px-4 bg-[#FCFCFC] rounded-lg py-2" key={expense.id}
             initial={{translateY:10}}
             whileInView={{translateY:0}}
             
             >
               <div className="flex flex-col gap-2">
-                <p className="font-bold text-lg">{expense.category}</p>
+                <p className="font-semibold text-lg">{expense.category}</p>
                 <p className="text-gray-500">
                   {expense.description.substring(0, 20)}
                 </p>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2 ">
+                <div className="flex flex-col gap-2 border-r-2 px-1">
                   <p className="text-red-500 font-bold">{expense.amount}</p>
                   <p className="text-gray-500">{expense.timeStamp}</p>
                 </div>
                 <div>
-                  <p
+                  <button
                     onClick={() => {
                       deleteanExpense(expense.id,expense.category,expense.description,expense.timeStamp,expense.amount);
                     }}
-                    className="text-lg text-red-600 border border-red-600 p-2 h-8 w-8 flex items-center justify-center rounded-full cursor-pointer"
+                    className=" text-red-600 border border-red-600 p-1  flex items-center justify-center rounded-lg cursor-pointer"
                   >
-                    X
-                  </p>
+                    Delete
+                  </button>
                   
                 </div>
               </div>
