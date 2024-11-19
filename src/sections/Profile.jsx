@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import ProfileMenu from "../Components/ProfileMenu";
 import Menu from "./Menu";
 import UserSetup from "./UserSetup";
@@ -5,35 +6,31 @@ import { UserImage } from "../constants";
 import { useUser } from "./ExpenseContext";
 import { usePopup } from "./ExpenseContext";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 
 const Profile = () => {
   const { user } = useUser();
   const { showAddUserForm, toggleUserForm } = usePopup();
 
- 
-
   return (
-    <>
-      {showAddUserForm  && <UserSetup />}
+    <div className="relative min-h-screen flex flex-col">
+      {showAddUserForm && <UserSetup />}
 
-      <motion.section 
+      <motion.div 
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
-        id="Profile"
-        className="bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] min-h-screen w-full  flex flex-col fixed overflow-x-hidden"
+        className="flex-grow bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] overflow-y-auto pb-[80px]" // Add padding at bottom for menu
       >
-        {/* Fixed Header Section */}
-        <section className="flex-none p-2">
-          <div className="flex items-center w-[95%] rounded-xl mx-auto justify-between bg-slate-300 bg-opacity-25 px-4 py-8 my-8">
+        {/* Profile Header */}
+        <section className="px-4 py-6">
+          <div className="flex items-center w-full rounded-xl justify-between bg-slate-300 bg-opacity-25 px-4 py-6">
             <div>
               <img
                 src={UserImage}
                 alt="User"
-                className="h-[100px] w-[100px] border-4 border-violet-900 rounded-full"
+                className="h-[100px] w-[100px] border-4 border-violet-900 rounded-full object-cover"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-grow ml-4">
               <p className="text-[14px] text-[#91919F]">username</p>
               <p className="text-[24px] font-semibold">{user?.name || "Guest"}</p>
             </div>
@@ -60,16 +57,17 @@ const Profile = () => {
           </div>
         </section>
 
-        {/* Scrollable Menu Section */}
-        <div className="">
+        {/* Profile Menu Content */}
+        <div className="px-4">
           <ProfileMenu />
         </div>
+      </motion.div>
 
-          <div className="absolute bottom-0 left-0 right-0 z-10">
+      {/* Fixed Bottom Menu */}
+      <div className="fixed bottom-0 left-0 right-0 z-50">
         <Menu />
       </div>
-      </motion.section>
-    </>
+    </div>
   );
 };
 
