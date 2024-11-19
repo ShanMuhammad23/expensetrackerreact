@@ -63,7 +63,7 @@ const Profile = () => {
         </section>
 
         {/* Scrollable Menu Section */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="">
           <ProfileMenu />
         </div>
 
