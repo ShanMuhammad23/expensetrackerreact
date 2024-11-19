@@ -24,11 +24,7 @@ const HomePage = () => {
     setTotalExpense(sum);
   }, [expenses]);
 
-  // Add null check for user to prevent errors
-  if (!user) {
-    return <UserSetup />;
-  }
-
+ 
   return (
     <div className="relative h-screen flex flex-col bg-[#C6C6C6]">
       {showAddUserForm && <UserSetup />}
