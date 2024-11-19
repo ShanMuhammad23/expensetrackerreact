@@ -10,20 +10,18 @@ import { useState, useEffect } from "react";
 const Profile = () => {
   const { user } = useUser();
   const { showAddUserForm, toggleUserForm } = usePopup();
-  const [isNewUser, setIsNewUser] = useState(false);
 
  
 
   return (
     <>
-      {/* Always show UserSetup if isNewUser is true */}
-      {(showAddUserForm || isNewUser) && <UserSetup />}
+      {showAddUserForm  && <UserSetup />}
 
       <motion.section 
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
         id="Profile"
-        className="bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] min-h-screen flex flex-col fixed inset-0"
+        className="bg-gradient-to-r from-[#c7bda8] via-[#d0c9bd] to-[#d5c29b] min-h-screen w-full  flex flex-col fixed overflow-x-hidden"
       >
         {/* Fixed Header Section */}
         <section className="flex-none p-2">

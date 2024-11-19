@@ -31,7 +31,7 @@ const UserSetup = () => {
     EditUserForm.value=false;
   };
   return (
-    <motion.div className="absolute flex  items-center justify-center w-full h-full "
+    <motion.div className="absolute flex  items-center justify-center w-full h-full z-40"
      initial={{opacity:0,scale:0.5}}
      whileInView={{opacity:1,scale:1}}
     >
