@@ -44,7 +44,7 @@ const RecentTransactions = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 pb-24 sticky ">
+    <div className="flex flex-col gap-4 pb-24 ">
       <div className="text-white w-full flex justify-between gap-2  border-2 border-white rounded-full">
         {buttons.map((button, index) => (
           <button

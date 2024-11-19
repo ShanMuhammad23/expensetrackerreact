@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useUser } from "./ExpenseContext";
 import { EditUserForm } from "../constants";
 import { motion } from "framer-motion";
+import { usePopup } from "./ExpenseContext";
 const UserSetup = () => {
+  const { showAddUserForm, toggleUserForm}=usePopup()
   const [showAddUser,setShowadduser]=useState(false)
   const { addUser } = useUser();
   const [formData, setFormData] = useState({
@@ -25,7 +27,7 @@ const UserSetup = () => {
       income: formData.income,
     };
     addUser(newUser);
-    setShowadduser(false);
+    toggleUserForm();
     EditUserForm.value=false;
   };
   return (
@@ -38,7 +40,7 @@ const UserSetup = () => {
         className="flex flex-col p-8 bg-white border border-[#8a8484] rounded-xl gap-2 w-[90%] m-auto"
         onSubmit={handleSubmit}
       >
-                    <div onClick={(()=>{setShowadduser(false)})} className="flex justify-end px-4"><span className="flex items-center justify-center p-2 border border-red-500 rounded-full h-8 w-8 text-red-600 cursor-pointer hover:bg-red-600 hover:text-white hover:scale-[1.1]">X</span></div>
+                    <div onClick={toggleUserForm} className="flex justify-end px-4"><span className="flex items-center justify-center p-2 border border-red-500 rounded-full h-8 w-8 text-red-600 cursor-pointer hover:bg-red-600 hover:text-white hover:scale-[1.1]">X</span></div>
 
         <h2 className="text-xl text-center">Set Up Your Profile</h2>
         <input

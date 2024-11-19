@@ -8,9 +8,11 @@ import { currentDate, UserImage } from "../constants";
 import { useUser } from "./ExpenseContext";
 import UserSetup from "./UserSetup";
 import { motion } from "framer-motion";
-const HomePage = ({ showAddUserState }) => {
+import { usePopup } from "./ExpenseContext";
+
+const HomePage = () => {
   const { expenses } = useExpense();
-  const [Adduser, setAddUser] = useState(showAddUserState);
+  const { showAddUserForm, toggleUserForm } = usePopup();
   const { user } = useUser();
   const [totalExpense, setTotalExpense] = useState(0);
 
@@ -24,18 +26,19 @@ const HomePage = ({ showAddUserState }) => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
-    if (!savedUser) setAddUser(true);
-  }, []);
+    if (!savedUser) toggleUserForm(true);
+  }, [toggleUserForm]);
 
   return (
     <>
-      {Adduser && <UserSetup />}
+      {showAddUserForm && <UserSetup />}
       <motion.section
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
-        className="bg-[#C6C6C6] min-h-screen max-h-screen px-2"
+        className="bg-[#C6C6C6] h-screen flex flex-col fixed inset-0 overflow-hidden"
       >
-        <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl ">
+        {/* Fixed Header Section */}
+        <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl flex-none">
           <div className="flex justify-between items-center mb-4">
             <p className="text-xl">{currentDate}</p>
             <div className="flex items-center gap-4">
@@ -44,7 +47,7 @@ const HomePage = ({ showAddUserState }) => {
               </div>
               <img
                 src={UserImage}
-                alt="User Picture"
+                alt="User"
                 className="h-[60px] w-[60px] border-4 border-violet-900 rounded-full"
               />
             </div>
@@ -57,11 +60,7 @@ const HomePage = ({ showAddUserState }) => {
             <p
               className={`font-semibold text-[40px] 
                 ${BalancePercentage > 70 ? "text-green-500" : ""} 
-                ${
-                  BalancePercentage <= 70 && BalancePercentage > 30
-                    ? "text-yellow-500"
-                    : ""
-                } 
+                ${BalancePercentage <= 70 && BalancePercentage > 30 ? "text-yellow-500" : ""} 
                 ${BalancePercentage <= 30 ? "text-red-500" : ""}`}
             >
               {AccountBalance || "Set Profile"}
@@ -98,19 +97,26 @@ const HomePage = ({ showAddUserState }) => {
           </div>
         </div>
 
-        <div className="p-4 ">
-          {/* Recent Transactions Section */}
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-lg">Recent Transactions</h2>
-            <Link to="/AllTransactions" className="text-blue-600">
-              View All
-            </Link>
-          </div>
+        {/* Scrollable Transactions Section */}
+        <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden">
+          <div className="p-4">
+            {/* Recent Transactions Section */}
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="font-semibold text-lg">Recent Transactions</h2>
+              <Link to="/AllTransactions" className="text-blue-600">
+                View All
+              </Link>
+            </div>
 
-          <RecentTransactions />
+            <RecentTransactions />
+          </div>
+        </div>
+
+        {/* Fixed Menu at Bottom */}
+        <div className="flex-none">
+          <Menu />
         </div>
       </motion.section>
-      <Menu />
     </>
   );
 };

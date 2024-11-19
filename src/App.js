@@ -15,7 +15,7 @@ const App = () => {
  
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen">
+    <main className="flex flex-col items-center justify-center  max-h-[100vh]">
       <section className="w-full sm:w-3/5 bg-white">
         <ExpenseProvider>
           <UserProvider>
