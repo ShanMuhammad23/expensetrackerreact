@@ -76,10 +76,7 @@ const Profile = () => {
           <ProfileMenu />
         </div>
 
-        {/* Fixed Bottom Menu */}
-        <div className="flex-none">
           <Menu />
-        </div>
       </motion.section>
     </>
   );

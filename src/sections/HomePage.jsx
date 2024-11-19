@@ -17,10 +17,7 @@ const HomePage = () => {
   const [totalExpense, setTotalExpense] = useState(0);
   const [isNewUser, setIsNewUser] = useState(false);
 
-  // Add null checks for user object
-  const income = user?.income || 0;
-  const AccountBalance = user ? (income - totalExpense) : 0;
-  const BalancePercentage = income ? (AccountBalance / income) * 100 : 0;
+  const AccountBalance = user.income - totalExpense;
 
   useEffect(() => {
     const sum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
@@ -28,7 +25,6 @@ const HomePage = () => {
   }, [expenses]);
 
   useEffect(() => {
-    // Check both user context and localStorage
     const savedUser = localStorage.getItem("user");
     const parsedUser = savedUser ? JSON.parse(savedUser) : null;
 
@@ -38,31 +34,15 @@ const HomePage = () => {
     }
   }, [toggleUserForm]);
 
-  // Helper function to render balance text with appropriate styling
-  const renderBalanceText = () => {
-    if (!user) return "Set Profile";
-    return AccountBalance;
-  };
-
-  // Helper function to get balance color
-  const getBalanceColor = () => {
-    if (!user) return "text-gray-500";
-    if (BalancePercentage > 70) return "text-green-500";
-    if (BalancePercentage > 30) return "text-yellow-500";
-    return "text-red-500";
-  };
-
   return (
     <>
-      {/* Always show UserSetup if isNewUser is true */}
       {(showAddUserForm || isNewUser) && <UserSetup />}
-      
+
       <motion.section
         initial={{ opacity: 0.5 }}
         whileInView={{ opacity: 1 }}
         className="bg-[#C6C6C6] h-screen flex flex-col fixed inset-0 overflow-hidden"
       >
-        {/* Rest of the component remains the same as in previous version */}
         <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl flex-none">
           <div className="flex justify-between items-center mb-4">
             <p className="text-xl">{currentDate}</p>
@@ -82,8 +62,8 @@ const HomePage = () => {
 
           <div className="flex flex-col items-center mt-6">
             <p className="text-[14px] text-[#91919F]">Account Balance</p>
-            <p className={`font-semibold text-[40px] ${getBalanceColor()}`}>
-              {renderBalanceText()}
+            <p className="font-semibold text-[40px]">
+              {AccountBalance}
             </p>
           </div>
 
@@ -132,10 +112,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Fixed Menu at Bottom */}
-        <div className="flex-none">
-          <Menu />
-        </div>
+        <Menu />
       </motion.section>
     </>
   );
