@@ -15,8 +15,8 @@ const App = () => {
  
 
   return (
-    <main className="flex flex-col items-center justify-center  max-h-[100vh]">
-      <section className="w-full sm:w-3/5 bg-white">
+    <main className="flex flex-col items-center justify-center min-h-screen max-h-screen">
+      <section className="w-full max-w-[430px] h-screen bg-white">
         <ExpenseProvider>
           <UserProvider>
             <PopupProvider>

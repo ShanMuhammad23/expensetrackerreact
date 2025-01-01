@@ -40,15 +40,12 @@ const AllTransactions = () => {
   return (
     <>
       {confirm && (
-        <div className="fixed z-50 w-full h-screen flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
           <motion.div
-          initial={{scale:0.5}}
-          whileInView={{scale:1}}
-
-          
-
-            role="alert"
-            className="mx-auto z-50 max-w-lg rounded-lg border border-stone bg-stone-100 w-[95%] m-auto p-4 shadow-lg sm:p-6 lg:p-8"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            className="mx-auto z-50 max-w-lg rounded-xl border border-stone/10 bg-white/95 w-[95%] m-auto p-6 shadow-2xl"
           >
             <div className="flex items-center gap-4">
               <span className="shrink-0 rounded-full bg-red-600 p-2 text-white">
@@ -102,50 +99,55 @@ const AllTransactions = () => {
       {alert && <Alert message="Expense Deleted Successfully" />}
       <section
         id="allTransactions"
-        className="bg-gradient-to-r from-[#e0d4be] via-[#cfb78a] to-[#cdc7ba] flex flex-col gap-4 max-h-[100vh] min-h-[100vh]"
+        className="bg-gradient-to-br from-stone-50 to-stone-100 flex flex-col gap-4 min-h-screen"
       >
-        <div className=" flex justify-between w-2/3 px-8 mb-12 py-2 items-center">
-          <Link to="/HomePage">
-            <img src={ArrowLeft} alt="Go Back" />
+        <div className="sticky top-0 backdrop-blur-md bg-white/70 z-10 flex justify-between w-full px-6 py-4 items-center border-b border-stone-200">
+          <Link to="/HomePage" className="hover:opacity-70 transition-opacity">
+            <img src={ArrowLeft} alt="Go Back" className="w-6 h-6" />
           </Link>
-          <p className="text-lg font-semibold">Transactions</p>
+          <p className="text-xl font-medium text-stone-800">Transactions</p>
+          <div className="w-6" />
         </div>
-        <div className="flex flex-col gap-4 px-4 sticky w-full top-24 overflow-y-scroll">
+
+        <div className="flex flex-col gap-3 px-4 pb-6">
           {expenses.map((expense) => (
-            <motion.div className="flex justify-between px-4 bg-[#FCFCFC] rounded-lg py-2" key={expense.id}
-            initial={{translateY:10}}
-            whileInView={{translateY:0}}
-            
+            <motion.div 
+              className="flex justify-between px-5 bg-white rounded-xl py-3 shadow-sm border border-stone-100 hover:shadow-md transition-shadow"
+              key={expense.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.01 }}
             >
-              <div className="flex flex-col gap-2">
-                <p className="font-semibold text-lg">{expense.category}</p>
-                <p className="text-gray-500">
+              <div className="flex flex-col gap-1">
+                <p className="font-medium text-lg text-stone-800">{expense.category}</p>
+                <p className="text-stone-500 text-sm">
                   {expense.description.substring(0, 20)}
                 </p>
               </div>
-              <div className="flex items-center gap-2 ">
-                <div className="flex flex-col gap-2 border-r-2 px-1">
-                  <p className="text-red-500 font-bold">{expense.amount}</p>
-                  <p className="text-gray-500">{expense.timeStamp}</p>
-                </div>
-                <div>
-                  <button
-                    onClick={() => {
-                      deleteanExpense(expense.id,expense.category,expense.description,expense.timeStamp,expense.amount);
-                    }}
-                    className=" text-red-600 border border-red-600 p-1  flex items-center justify-center rounded-lg cursor-pointer"
-                  >
-                    Delete
-                  </button>
-                  
-                </div>
-              </div>
               
+              <div className="flex items-center gap-4">
+                <div className="flex flex-col gap-1 items-end">
+                  <p className="text-red-500 font-semibold">₹{expense.amount}</p>
+                  <p className="text-stone-400 text-sm">{expense.timeStamp}</p>
+                </div>
+                
+                <button
+                  onClick={() => deleteanExpense(expense.id, expense.category, expense.description, expense.timeStamp, expense.amount)}
+                  className="text-red-600 hover:bg-red-50 border border-red-200 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
             </motion.div>
           ))}
-          <p className="text-red-600 font-bold text-center mb-4">
-            No More Transactions
-          </p>
+          
+          {expenses.length === 0 ? (
+            <p className="text-stone-500 text-center py-8">No transactions yet</p>
+          ) : (
+            <p className="text-stone-500 text-sm text-center mt-4">
+              End of transactions
+            </p>
+          )}
         </div>
       </section>
     </>

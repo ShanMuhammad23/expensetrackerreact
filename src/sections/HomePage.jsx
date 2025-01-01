@@ -25,71 +25,72 @@ const HomePage = () => {
   }, [expenses]);
 
   return (
-    <div className="relative h-screen flex flex-col bg-[#C6C6C6]">
+    <div className="relative h-screen flex flex-col bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Always show UserSetup if no user or showAddUserForm is true */}
       {(!user || showAddUserForm) && <UserSetup />}
 
       {/* Only render main content if user exists */}
       {user && (
         <motion.div 
-          initial={{ opacity: 0.5 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
           className="flex-grow overflow-hidden flex flex-col"
         >
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-[#ebe3d3] via-[#f4e5c9] to-[#e0d7c5] p-4 rounded-b-xl">
-            <div className="flex justify-between items-center mb-4">
-              <p className="text-xl">{currentDate}</p>
+          <div className="bg-gradient-to-r from-violet-500 via-violet-600 to-violet-700 p-6 rounded-b-[32px] shadow-lg">
+            <div className="flex justify-between items-center mb-6">
+              <p className="text-xl text-white/90 font-medium">{currentDate}</p>
               <div className="flex items-center gap-4">
                 <div>
-                  <p className="text-lg font-semibold">{user.name}</p>
+                  <p className="text-lg text-white font-semibold">{user.name}</p>
                 </div>
                 <img
                   src={UserImage}
                   alt="User"
-                  className="h-[60px] w-[60px] border-4 border-violet-900 rounded-full"
+                  className="h-[60px] w-[60px] border-4 border-white/20 rounded-full shadow-md hover:scale-105 transition-transform"
                 />
               </div>
             </div>
 
-            <hr className="bg-black mt-4" />
+            <div className="h-[1px] bg-white/20 my-4" />
 
             {/* Account Balance Section */}
             <div className="flex flex-col items-center mt-6">
-              <p className="text-[14px] text-[#91919F]">Account Balance</p>
-              <p className="font-semibold text-[40px]">
-                {AccountBalance.toLocaleString()}
+              <p className="text-[14px] text-white/70">Account Balance</p>
+              <p className="font-bold text-[44px] text-white">
+                ${AccountBalance.toLocaleString()}
               </p>
             </div>
 
             {/* Income and Expense Cards */}
-            <div className="flex justify-between gap-4 mt-6">
+            <div className="flex justify-between gap-4 mt-8">
               {/* Income Card */}
-              <div className="w-[184px] h-[90px] flex items-center bg-[#00A86B] rounded-xl text-white p-2 gap-2">
+              <div className="w-[184px] h-[90px] flex items-center bg-white/10 backdrop-blur-md rounded-2xl text-white p-4 gap-3 hover:bg-white/15 transition-colors">
                 <img
                   src={downArrow}
-                  className="h-[50px] w-[60px] rounded-full"
+                  className="h-[45px] w-[45px] rounded-full"
                   alt="Income Arrow"
                 />
                 <div>
-                  <p>Income</p>
+                  <p className="text-white/70">Income</p>
                   <p className="font-semibold text-[22px]">
-                    {user.income?.toLocaleString() || 0}
+                    ${user.income?.toLocaleString() || 0}
                   </p>
                 </div>
               </div>
               
               {/* Expense Card */}
-              <div className="w-[184px] h-[90px] flex items-center bg-[#FD3C4A] rounded-xl text-white p-2 gap-2">
+              <div className="w-[184px] h-[90px] flex items-center bg-white/10 backdrop-blur-md rounded-2xl text-white p-4 gap-3 hover:bg-white/15 transition-colors">
                 <img
                   src={upArrow}
-                  className="h-[50px] w-[60px] rounded-full"
+                  className="h-[45px] w-[45px] rounded-full"
                   alt="Expense Arrow"
                 />
                 <div>
-                  <p>Expenses</p>
+                  <p className="text-white/70">Expenses</p>
                   <p className="font-semibold text-[22px]">
-                    {totalExpense.toLocaleString()}
+                    ${totalExpense.toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -97,10 +98,13 @@ const HomePage = () => {
           </div>
 
           {/* Recent Transactions Section */}
-          <div className="flex-grow overflow-y-auto px-4 pt-4 pb-24">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="font-semibold text-lg">Recent Transactions</h2>
-              <Link to="/AllTransactions" className="text-blue-600">
+          <div className="flex-grow overflow-y-auto px-6 pt-6 pb-24">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="font-semibold text-xl text-gray-800">Recent Transactions</h2>
+              <Link 
+                to="/AllTransactions" 
+                className="text-violet-600 hover:text-violet-700 font-medium transition-colors"
+              >
                 View All
               </Link>
             </div>
