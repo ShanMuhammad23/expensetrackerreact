@@ -127,7 +127,7 @@ const AllTransactions = () => {
               
               <div className="flex items-center gap-4">
                 <div className="flex flex-col gap-1 items-end">
-                  <p className="text-red-500 font-semibold">₹{expense.amount}</p>
+                  <p className="text-red-500 font-semibold">{expense.amount}</p>
                   <p className="text-stone-400 text-sm">{expense.timeStamp}</p>
                 </div>
                 

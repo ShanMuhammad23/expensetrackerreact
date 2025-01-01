@@ -38,59 +38,59 @@ const HomePage = () => {
           className="flex-grow overflow-hidden flex flex-col"
         >
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-violet-500 via-violet-600 to-violet-700 p-6 rounded-b-[32px] shadow-lg">
-            <div className="flex justify-between items-center mb-6">
-              <p className="text-xl text-white/90 font-medium">{currentDate}</p>
-              <div className="flex items-center gap-4">
+          <div className="bg-gradient-to-r from-violet-500 via-violet-600 to-violet-700 p-4 rounded-b-[32px] shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+              <p className="text-lg text-white/90 font-medium">{currentDate}</p>
+              <div className="flex items-center gap-3">
                 <div>
-                  <p className="text-lg text-white font-semibold">{user.name}</p>
+                  <p className="text-base text-white font-semibold">{user.name}</p>
                 </div>
                 <img
                   src={UserImage}
                   alt="User"
-                  className="h-[60px] w-[60px] border-4 border-white/20 rounded-full shadow-md hover:scale-105 transition-transform"
+                  className="h-[50px] w-[50px] border-4 border-white/20 rounded-full shadow-md hover:scale-105 transition-transform"
                 />
               </div>
             </div>
 
-            <div className="h-[1px] bg-white/20 my-4" />
+            <div className="h-[1px] bg-white/20 my-3" />
 
             {/* Account Balance Section */}
-            <div className="flex flex-col items-center mt-6">
-              <p className="text-[14px] text-white/70">Account Balance</p>
-              <p className="font-bold text-[44px] text-white">
-                ${AccountBalance.toLocaleString()}
+            <div className="flex flex-col items-center mt-4">
+              <p className="text-[12px] text-white/70">Account Balance</p>
+              <p className="font-bold text-[36px] text-white">
+                {AccountBalance.toLocaleString()}
               </p>
             </div>
 
             {/* Income and Expense Cards */}
-            <div className="flex justify-between gap-4 mt-8">
+            <div className="flex justify-between gap-4 mt-6">
               {/* Income Card */}
-              <div className="w-[184px] h-[90px] flex items-center bg-white/10 backdrop-blur-md rounded-2xl text-white p-4 gap-3 hover:bg-white/15 transition-colors">
+              <div className="w-[184px] h-[80px] flex items-center bg-white/10 backdrop-blur-md rounded-2xl text-white p-3 gap-3 hover:bg-white/15 transition-colors">
                 <img
                   src={downArrow}
-                  className="h-[45px] w-[45px] rounded-full"
+                  className="h-[40px] w-[40px] rounded-full"
                   alt="Income Arrow"
                 />
                 <div>
                   <p className="text-white/70">Income</p>
                   <p className="font-semibold text-[22px]">
-                    ${user.income?.toLocaleString() || 0}
+                    {user.income?.toLocaleString() || 0}
                   </p>
                 </div>
               </div>
               
               {/* Expense Card */}
-              <div className="w-[184px] h-[90px] flex items-center bg-white/10 backdrop-blur-md rounded-2xl text-white p-4 gap-3 hover:bg-white/15 transition-colors">
+              <div className="w-[184px] h-[80px] flex items-center bg-white/10 backdrop-blur-md rounded-2xl text-white p-3 gap-3 hover:bg-white/15 transition-colors">
                 <img
                   src={upArrow}
-                  className="h-[45px] w-[45px] rounded-full"
+                  className="h-[40px] w-[40px] rounded-full"
                   alt="Expense Arrow"
                 />
                 <div>
                   <p className="text-white/70">Expenses</p>
                   <p className="font-semibold text-[22px]">
-                    ${totalExpense.toLocaleString()}
+                    {totalExpense.toLocaleString()}
                   </p>
                 </div>
               </div>
