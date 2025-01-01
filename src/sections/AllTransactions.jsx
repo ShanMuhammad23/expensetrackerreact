@@ -40,58 +40,68 @@ const AllTransactions = () => {
   return (
     <>
       {confirm && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4">
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="mx-auto z-50 max-w-lg rounded-xl border border-stone/10 bg-white/95 w-[95%] m-auto p-6 shadow-2xl"
+            exit={{ scale: 0.95, opacity: 0 }}
+            className="mx-auto z-50 max-w-md rounded-2xl border border-stone-200 bg-white w-full p-6 shadow-xl"
           >
-            <div className="flex items-center gap-4">
-              <span className="shrink-0 rounded-full bg-red-600 p-2 text-white">
+            <div className="flex items-center gap-4 border-b border-stone-100 pb-4">
+              <span className="shrink-0 rounded-full bg-red-100 p-2.5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="white"
-                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-5 h-5 text-red-600"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z"
-                    clipRule="evenodd"
-                  ></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                 </svg>
               </span>
-
-              <p className="font-medium sm:text-lg text-red-600">
-                Delete this expense?
-              </p>
+              <div>
+                <h3 className="font-semibold text-xl text-stone-800">
+                  Confirm Deletion
+                </h3>
+                <p className="text-stone-500 text-sm mt-0.5">
+                  This action cannot be undone
+                </p>
+              </div>
             </div>
 
-            <div className="text-gray-600 mt-4 mb-2 flex flex-col gap-2 ml-12">
-               <p className="text-lg font-semibold">Category: {deleteid.category}</p>
-                <p>Description: {deleteid.description}</p>
-                <p>Amount: {deleteid.amount}</p>
-                <p>Added On: {deleteid.timeStamp}</p>
-            </div> 
-            
+            <div className="space-y-3 py-4 border-b border-stone-100">
+              <div className="flex justify-between items-center">
+                <span className="text-stone-500">Category</span>
+                <span className="font-medium text-stone-800">{deleteid.category}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-stone-500">Description</span>
+                <span className="font-medium text-stone-800">{deleteid.description}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-stone-500">Amount</span>
+                <span className="font-medium text-red-600">{deleteid.amount}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-stone-500">Date</span>
+                <span className="font-medium text-stone-800">{deleteid.timeStamp}</span>
+              </div>
+            </div>
 
-            <div className="mt-6 sm:flex sm:gap-4">
-              <a
-              onClick={(()=>{confirmDeletion(deleteid)})}
-                href="#"
-                className="inline-block w-full rounded-lg bg-red-600 px-5 py-3 text-center text-sm font-semibold text-white sm:w-auto"
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setConfirm(false)}
+                className="flex-1 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-600 font-medium hover:bg-stone-50 transition-colors"
               >
-                Yes
-              </a>
-
-              <a
-              onClick={(()=>{setConfirm(false)})}
-                href="#"
-                className="mt-2 inline-block w-full rounded-lg bg-stone-300 px-5 py-3 text-center text-sm font-semibold text-gray-800 sm:mt-0 sm:w-auto"
+                Cancel
+              </button>
+              <button
+                onClick={() => confirmDeletion(deleteid)}
+                className="flex-1 px-4 py-2.5 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700 transition-colors"
               >
-                No
-              </a>
+                Delete
+              </button>
             </div>
           </motion.div>
         </div>

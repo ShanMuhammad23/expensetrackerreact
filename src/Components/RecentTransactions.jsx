@@ -87,7 +87,7 @@ const RecentTransactions = () => {
                     <img src={upArrow} className="h-5 w-5 text-emerald-500" alt={expense.category} />
                   </div>
                   <div>
-                    <p className="font-semibold text-[22px] text-white tracking-tight">${expense.amount}</p>
+                    <p className="font-semibold text-[22px] text-white tracking-tight">{expense.amount}</p>
                     <p className="text-sm text-emerald-400/90 font-medium">{expense.category}</p>
                   </div>
                 </div>
