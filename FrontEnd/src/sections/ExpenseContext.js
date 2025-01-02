@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { expenses as initialExpenses } from "../constants";
+import axios from 'axios';
 
 const ExpenseContext = createContext();
 const UserContext = createContext();
@@ -11,6 +12,9 @@ const DELETE_EXPENSE = "DELETE_EXPENSE";
 const ADD_USER = "ADD_USER";
 const SHOW_USERFORM = "SHOW_USERFORM";
 const HIDE_USERFORM = "HIDE_USERFORM";
+const SET_EXPENSES = "SET_EXPENSES";
+const SET_LOADING = "SET_LOADING";
+const SET_ERROR = "SET_ERROR";
 
 // Expense Reducer
 const expenseReducer = (state, action) => {
@@ -19,6 +23,24 @@ const expenseReducer = (state, action) => {
       return [action.payload, ...state];
     case DELETE_EXPENSE:
       return state.filter((expense) => expense.id !== action.payload);
+    case SET_EXPENSES:
+      return {
+        ...state,
+        expenses: action.payload,
+        loading: false,
+        error: null
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
+      };
     default:
       return state;
   }
@@ -73,20 +95,47 @@ export const usePopup = () => {
 
 // Providers
 export const ExpenseProvider = ({ children }) => {
-  const [expenses, dispatch] = useReducer(expenseReducer, [], () => {
-    const localData = localStorage.getItem("expenses");
-    return localData ? JSON.parse(localData) : initialExpenses;
+  const [state, dispatch] = useReducer(expenseReducer, {
+    expenses: initialExpenses,
+    loading: false,
+    error: null
   });
 
   useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-  }, [expenses]);
+    const fetchExpenses = async () => {
+      dispatch({ type: SET_LOADING });
+      try {
+        const response = await axios.get('http://localhost:3001/api/expenses');
+        dispatch({
+          type: SET_EXPENSES,
+          payload: response.data
+        });
+      } catch (error) {
+        console.error('Error fetching expenses:', error);
+        dispatch({
+          type: SET_ERROR,
+          payload: "Could not fetch expenses from server"
+        });
+      }
+    };
 
-  const addExpense = (expense) => {
-    dispatch({
-      type: ADD_EXPENSE,
-      payload: { ...expense, id: Date.now() },
-    });
+    fetchExpenses();
+  }, []);
+
+  const addExpense = async (expense) => {
+    try {
+      const response = await axios.post('http://localhost:3001/api/expenses', expense);
+      dispatch({
+        type: ADD_EXPENSE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error('Error adding expense:', error);
+      dispatch({
+        type: SET_ERROR,
+        payload: "Could not add expense"
+      });
+    }
   };
 
   const deleteExpense = (id) => {
@@ -97,7 +146,11 @@ export const ExpenseProvider = ({ children }) => {
   };
 
   return (
-    <ExpenseContext.Provider value={{ expenses, addExpense, deleteExpense }}>
+    <ExpenseContext.Provider value={{ 
+      ...state,  // This will expose loading and error states
+      addExpense, 
+      deleteExpense 
+    }}>
       {children}
     </ExpenseContext.Provider>
   );
