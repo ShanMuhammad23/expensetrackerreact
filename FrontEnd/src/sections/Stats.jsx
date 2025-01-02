@@ -72,7 +72,7 @@ const Stats = () => {
                       <h2 className="font-medium text-sm text-gray-800">{cat.category}</h2>
                     </div>
                     <span className="text-[#7F3DFF] font-semibold text-lg">
-                      ${cat.totalAmount.toFixed(2)}
+                      {cat.totalAmount.toFixed(2)}
                     </span>
                   </div>
                   <div className="w-full">

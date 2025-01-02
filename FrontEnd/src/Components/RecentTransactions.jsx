@@ -54,7 +54,7 @@ const RecentTransactions = () => {
             className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
               ${activeButton === index 
                 ? "bg-white text-gray-900 shadow-lg" 
-                : "text-gray-300 hover:text-white hover:bg-white/10"}`}
+                : " hover:text-white hover:bg-white/10"}`}
           >
             {button}
           </button>
@@ -77,9 +77,9 @@ const RecentTransactions = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2, delay: index * 0.05 }}
-                className="flex items-center justify-between bg-[#1A1A1A] hover:bg-[#252525]
-                  transition-all duration-200 py-5 px-6 rounded-2xl cursor-pointer shadow-xl
-                  border border-zinc-800/50"
+                className="flex items-center justify-between bg-white hover:bg-gray-100
+                  transition-all duration-200 py-2 px-6 rounded-2xl cursor-pointer shadow-xl
+                  border"
                 onClick={() => toggleDetails(index)}
               >
                 <div className="flex items-center gap-5">
@@ -87,7 +87,7 @@ const RecentTransactions = () => {
                     <img src={upArrow} className="h-5 w-5 text-emerald-500" alt={expense.category} />
                   </div>
                   <div>
-                    <p className="font-semibold text-[22px] text-white tracking-tight">{expense.amount}</p>
+                    <p className="font-semibold text-[22px]  tracking-tight">{expense.amount}</p>
                     <p className="text-sm text-emerald-400/90 font-medium">{expense.category}</p>
                   </div>
                 </div>

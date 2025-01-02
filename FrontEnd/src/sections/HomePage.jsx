@@ -9,13 +9,23 @@ import { useUser } from "./ExpenseContext";
 import UserSetup from "./UserSetup";
 import { motion } from "framer-motion";
 import { usePopup } from "./ExpenseContext";
+import axios from "axios";
 
 const HomePage = () => {
   const { expenses } = useExpense();
+  const [expensesDB, setExpensesDB] = useState([]);
   const { showAddUserForm } = usePopup();
   const { user } = useUser();
   const [totalExpense, setTotalExpense] = useState(0);
-  
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/expenses")
+      .then((res) => {
+        setExpensesDB(res.data);
+      })
+      .catch(error => {
+        console.error("Error fetching expenses:", error);
+      });
+  }, []);
   // Safely calculate account balance
   const AccountBalance = user?.income ? user.income - totalExpense : 0;
 
@@ -38,7 +48,7 @@ const HomePage = () => {
           className="flex-grow overflow-hidden flex flex-col"
         >
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-violet-500 via-violet-600 to-violet-700 p-4 rounded-b-[32px] shadow-lg">
+          <div className="bg-gradient-to-r from-violet-500 via-violet-600 to-violet-700 p-4 rounded-b-[12px] shadow-lg">
             <div className="flex justify-between items-center mb-4">
               <p className="text-lg text-white/90 font-medium">{currentDate}</p>
               <div className="flex items-center gap-3">
